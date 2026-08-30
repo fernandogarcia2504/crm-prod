@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { FishingHook } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 interface EntrepeneurshipCardProps {
     title: string;
@@ -9,8 +8,6 @@ interface EntrepeneurshipCardProps {
 }
 
 export default function EntrepeneurshipCard({ title, description, onClick }: EntrepeneurshipCardProps) {
-
-    const navigate = useNavigate();
 
     return(
         <motion.button

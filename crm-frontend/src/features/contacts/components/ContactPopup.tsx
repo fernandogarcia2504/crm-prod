@@ -94,6 +94,11 @@ export default function ContactPopup({onClose, createContact, companies, loading
                 </p>
             )}
 
+            {loading && (
+                <p className="mt-8 px-3 text-[#959595]">Cargando contactos...</p>
+            )}
+
+
             <div className="w-full flex flex-col gap-3">
                 <p className="text-sm">Selecciona una empresa</p>
                 <select value={selectedCompanyId} onChange={(e) => setSelectedCompanyId(e.target.value)} disabled={loadingCompanies} required

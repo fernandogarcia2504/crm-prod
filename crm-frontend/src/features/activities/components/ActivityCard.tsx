@@ -63,7 +63,7 @@ const activityConfig = {
     }
 }
 
-export default function ActivityCard({ title, result, nextStep, date, type, isLast=false}: ActivityCardProps) {
+export default function ActivityCard({ title, nextStep, date, type, isLast=false}: ActivityCardProps) {
 
     const {icon: Icon, color} = activityConfig[type];
 

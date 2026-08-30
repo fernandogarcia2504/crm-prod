@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 
-import { MoveUp } from 'lucide-react';
-
 interface SetAvailableMoneyProps {
     amount: number;
 }

@@ -100,6 +100,11 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
                 </p>
             )}
 
+            {loading && (
+                <p className="mt-8 px-3 text-[#959595]">Cargando empresas...</p>
+            )}
+
+
             <div className="w-full flex flex-col gap-3">
                 <p className="text-sm">Nombre de la empresa</p>
                 <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="Ingresa el nombre de la empresa"  />
