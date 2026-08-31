@@ -10,7 +10,7 @@ import type {
     DeleteCourseResponse
 } from "../types/course.types";
 
-const API_URL = "http://localhost:3000/api/courses";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/courses";
 
 const authHeaders = () => ({
     "Authorization": `Bearer ${localStorage.getItem("token")}`

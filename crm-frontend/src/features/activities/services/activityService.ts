@@ -1,6 +1,6 @@
 import type { Activity, CreateActivityResponse, CreateActivityData, GetActivitiesResponse, GetActivityResponse } from "../types/activities.types";
 
-const API_URL = "http://localhost:3000/api/activities";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/activities";
 
 export const getActivities = async(opportunityId: string): Promise<Activity[]> => {
 

@@ -13,7 +13,7 @@ export interface GophishSendingProfile {
     name: string;
 }
 
-const API_URL = "http://localhost:3000/api/gophish";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/gophish";
 
 const authHeaders = () => ({
     "Authorization": `Bearer ${localStorage.getItem("token")}`

@@ -1,6 +1,6 @@
 import type { CompanyDocument, DocumentCategory, GetDocumentsResponse, UploadDocumentResponse } from "../types/documents.types";
 
-const API_URL = "http://localhost:3000/api/documents";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/documents";
 
 export interface UploadDocumentData {
     file: File;

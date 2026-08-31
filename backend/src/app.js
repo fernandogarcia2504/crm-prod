@@ -22,8 +22,8 @@ import { verifyToken, verifyEmployeeToken } from "./middlewares/auth.middleware.
 const app = express();
 
 const allowedOrigins = [
-    process.env.CRM_ORIGIN || "http://localhost:5173",
-    process.env.COURSES_ORIGIN || "http://localhost:5174"
+    process.env.CRM_ORIGIN || "https://crm.garciaconsulting.com.mx",
+    process.env.COURSES_ORIGIN || "https://courses.garciaconsulting.com.mx"
 ];
 
 app.use(cors({

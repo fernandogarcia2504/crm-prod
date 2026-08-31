@@ -1,6 +1,6 @@
 import type { ServiceTemplate, CreateServiceTemplateData, CreateServiceTemplateResponse, GetServiceTemplateResponse, GetServiceTemplatesResponse } from "../types/templates.types";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api";
 
 export const getTemplates = async (businessId: string): Promise<ServiceTemplate[]> => {
 

@@ -39,7 +39,7 @@ export default function EntrepeneurshipPage() {
                 const token = localStorage.getItem("token");
 
                 const response = await fetch(
-                    "http://localhost:3000/api/business",
+                    "https://crmprod-70ae5fa5478a.herokuapp.com/api/business",
                     {
                         method: "GET",
                         headers: {

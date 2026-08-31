@@ -1,6 +1,6 @@
 import type { Opportunity, CreateOpportunityData, CreateOpportunityResponse, UpdateOpportunityData, UpdateOpportunityResponse, GetOpportunitiesResponse, GetOpportunityResponse } from "../types/opportunity.types";
 
-const API_URL = "http://localhost:3000/api/opportunities";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/opportunities";
 
 export const getOpportunities = async(companyId: string): Promise<Opportunity[]> => {
 

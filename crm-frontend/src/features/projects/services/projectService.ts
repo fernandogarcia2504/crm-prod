@@ -1,6 +1,6 @@
 import type { Project, TaskStatus, GetProjectsResponse, GetProjectResponse, UpdateTaskStatusResponse } from "../types/project.types";
 
-const API_URL = "http://localhost:3000/api/projects";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/projects";
 
 export const getProjects = async (companyId: string): Promise<Project[]> => {
 

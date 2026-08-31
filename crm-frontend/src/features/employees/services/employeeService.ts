@@ -8,7 +8,7 @@ import type {
     AssignCourseResponse
 } from "../types/employee.types";
 
-const API_URL = "http://localhost:3000/api/employees";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/employees";
 
 export const getEmployees = async (companyId: string): Promise<Employee[]> => {
 

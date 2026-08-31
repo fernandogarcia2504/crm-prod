@@ -1,6 +1,6 @@
 import type { Company, CreateCompanyData, UpdateCompanyData, GetCompaniesResponse, GetCompanyResponse, UpdateCompanyResponse, DeleteCompanyResponse, CreateCompanyResponse } from "../types/company.types";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api";
 
 export const getCompanies = async (businessId: string): Promise<Company[]> => {
 

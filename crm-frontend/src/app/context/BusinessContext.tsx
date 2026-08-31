@@ -62,7 +62,7 @@ export const BusinessProvider: React.FC<{children: React.ReactNode}> = ({ childr
 
                 const token = localStorage.getItem("token");
 
-                const response = await fetch(`http://localhost:3000/api/business/${businessId}`, {
+                const response = await fetch(`https://crmprod-70ae5fa5478a.herokuapp.com/api/business/${businessId}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -114,7 +114,7 @@ export const BusinessProvider: React.FC<{children: React.ReactNode}> = ({ childr
 
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`http://localhost:3000/api/business/${businessId}`, {
+        const response = await fetch(`https://crmprod-70ae5fa5478a.herokuapp.com/api/business/${businessId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

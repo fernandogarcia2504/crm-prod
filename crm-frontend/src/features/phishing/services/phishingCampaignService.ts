@@ -9,7 +9,7 @@ import type {
     DeleteCampaignResponse
 } from "../types/phishingCampaign.types";
 
-const API_URL = "http://localhost:3000/api/phishing-campaigns";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/phishing-campaigns";
 
 export const getCampaigns = async (projectId: string): Promise<PhishingCampaign[]> => {
 

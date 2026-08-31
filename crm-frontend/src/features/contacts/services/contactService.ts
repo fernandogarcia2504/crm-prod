@@ -1,6 +1,6 @@
 import type { Contact, CreateContactData, UpdateContactData, GetContactResponse, GetContactsResponse, UpdateContactResponse, CreateContactResponse, GetAllContactsResponse } from "../types/contact.types";
 
-const API_URL = "http://localhost:3000/api/contacts";
+const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/contacts";
 
 export const getAllContacts = async(businessId: string): Promise<Contact[]> => {
 
