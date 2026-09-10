@@ -1,6 +1,6 @@
 import type { Contact, CreateContactData, UpdateContactData, GetContactResponse, GetContactsResponse, UpdateContactResponse, CreateContactResponse, GetAllContactsResponse } from "../types/contact.types";
 
-const API_URL = "https://crmprod-70ae5fa5478a.herokuapp.com/api/contacts";
+const API_URL = "http://localhost:3000/api/contacts";
 
 export const getAllContacts = async(businessId: string): Promise<Contact[]> => {
 
@@ -115,4 +115,25 @@ export const updateContact = async (companyId: string, contactId: string, contac
     }
 
     return data.contact;
+};
+
+export const deleteContact = async (companyId: string, contactId: string): Promise<void> => {
+
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${API_URL}/${companyId}/contacts/${contactId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+
+        const data = await response.json().catch(() => ({}));
+
+        throw new Error(
+            data.message || "Error al eliminar el contacto"
+        );
+    }
 };
