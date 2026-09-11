@@ -34,6 +34,8 @@ app.use(cors({
             return callback(null, true);
         }
 
+        console.error(`CORS bloqueado para origen: ${origin} (permitidos: ${allowedOrigins.join(", ")})`);
+
         callback(new Error("Origen no permitido por CORS"));
 
     }
@@ -62,5 +64,24 @@ app.use("/api/courses", verifyToken, courseRoutes);
 // protegidas con su propio token, nunca con el verifyToken de staff
 app.use("/api/course-auth", courseAuthRoutes);
 app.use("/api/course-portal", verifyEmployeeToken, coursePortalRoutes);
+
+// Manejador de errores global: cualquier error no controlado en una ruta o
+// middleware (incluyendo el rechazo de CORS de arriba) cae aquí en vez del
+// manejador default de Express, que regresaba HTML sin detalle. Esto deja
+// el error real en los logs de Heroku (heroku logs --tail) y responde JSON
+// consistente con el resto de la API.
+app.use((err, req, res, next) => {
+
+    if (res.headersSent) {
+        return next(err);
+    }
+
+    console.error(`Error no controlado en ${req.method} ${req.originalUrl}:`, err);
+
+    return res.status(err.status || err.statusCode || 500).json({
+        message: err.message || "Error interno del servidor"
+    });
+
+});
 
 export default app;
