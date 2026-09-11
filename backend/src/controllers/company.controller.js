@@ -44,7 +44,7 @@ export const createCompany = async(req, res) => {
         return res.status(201).json({
             message: "Empresa creada correctamente",
             company: {
-                id: company._id,
+                _id: company._id,
                 name: company.name,
                 website: company.website,
                 companySize: company.companySize,
@@ -196,7 +196,7 @@ export const updateCompany = async (req, res) => {
         return res.status(200).json({
             message: "Empresa actualizada correctamente",
             company: {
-                id: company._id,
+                _id: company._id,
                 business: company.business,
                 name: company.name,
                 website: company.website,
