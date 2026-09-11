@@ -36,7 +36,7 @@ export const createContact = async(req, res) => {
         return res.status(201).json({
             message: "Contacto creado exitosamente",
             contact: {
-                id: contact._id,
+                _id: contact._id,
                 company: contact.company,
                 fullName: contact.fullName,
                 position: contact.position,
