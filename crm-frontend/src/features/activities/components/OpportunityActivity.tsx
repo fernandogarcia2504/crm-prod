@@ -60,14 +60,14 @@ export default function OpportunityActivity({ opportunity, onOpportunityUpdate }
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="w-full flex flex-col pb-12">
             <p className="px-3 pb-2">Secuencia de actividades para: {opportunity.title}</p>
 
-            <div className="w-full flex justify-between bg-[#212121] rounded-md">
-                <div className="w-[60%] rounded-md flex flex-col gap-3  p-3 ">
+            <div className="w-full flex flex-col sm:flex-row justify-between bg-[#212121] rounded-md">
+                <div className="w-full sm:w-[60%] rounded-md flex flex-col gap-3 p-3">
                     <div className="flex gap-2 items-center">
                         <p className="text-sm text-[#959595] ">Etapa: </p>
                         <p className="text-sm ">{opportunity.stage}</p>
                     </div>
 
-                    <div className="flex gap-8 items-center">
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-8 sm:items-center">
                         <p className="text-sm text-[#959595]">{activities.length} Actividades registradas</p>
                         <p className="text-sm text-[#959595]">
                             {firstActivityDate
@@ -79,7 +79,7 @@ export default function OpportunityActivity({ opportunity, onOpportunityUpdate }
                         </p>
                     </div>
                 </div>
-                <div className="flex w-[40%] items px-6 justify-end">
+                <div className="flex w-full sm:w-[40%] items px-3 sm:px-6 pb-3 sm:pb-0 justify-start sm:justify-end">
                     <CreateButton title="Agregar Actividad" onClick={() => setIsOpenPopup(true)} />
                 </div>
             </div>

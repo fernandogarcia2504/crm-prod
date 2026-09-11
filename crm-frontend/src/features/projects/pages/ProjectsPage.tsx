@@ -27,7 +27,7 @@ export default function ProjectsPage() {
                 <p className="mt-12 text-[#959595]">No hay proyectos registrados para esta empresa. Un proyecto se crea automáticamente cuando una oportunidad se marca como Ganado.</p>
             )}
 
-            <div className="w-full grid grid-cols-3 gap-12 mt-12">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-12 mt-12">
 
                 {!loading && !error && projects.map((project) => (
                     <ProjectCard key={project._id} project={project} />

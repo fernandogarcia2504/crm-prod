@@ -52,7 +52,7 @@ export default function CreateCoursePopup({ onClose, createCourse }: CreateCours
         <form
             onSubmit={handleSubmit}
             onClick={(e) => e.stopPropagation()}
-            className="w-[36%] bg-[#1A1A1A] flex flex-col p-4 gap-6 rounded-md"
+            className="w-[92%] sm:w-[75%] md:w-[55%] lg:w-[36%] max-h-[90vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6 rounded-md"
         >
             <button onClick={onClose} type="button"><X size={14} /></button>
 

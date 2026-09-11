@@ -22,35 +22,39 @@ export default function ContactsPage() {
                 <CreateButton title="Agregar Contacto" onClick={() => setIsOpenPopup(true)} />
             </div>
 
-            <div className="w-full grid grid-cols-[20%_20%_15%_15%_20%_10%] pt-8">
-                <p className="text-[#959595]">Nombre</p>
-                <p className="text-[#959595]">Puesto</p>
-                <p className="text-[#959595]">Teléfono</p>
-                <p className="text-[#959595]">Empresa</p>
-                <p className="text-[#959595]">Correo electrónico</p>
-                <p className="text-[#959595] text-right">Principal</p>
+            <div className="w-full overflow-x-auto">
+                <div className="min-w-[760px]">
+                    <div className="w-full grid grid-cols-[20%_20%_15%_15%_20%_10%] pt-8">
+                        <p className="text-[#959595]">Nombre</p>
+                        <p className="text-[#959595]">Puesto</p>
+                        <p className="text-[#959595]">Teléfono</p>
+                        <p className="text-[#959595]">Empresa</p>
+                        <p className="text-[#959595]">Correo electrónico</p>
+                        <p className="text-[#959595] text-right">Principal</p>
+                    </div>
+
+                    {loading && (
+                        <p className="mt-8 text-[#959595]">
+                            Cargando contactos...
+                        </p>
+                    )}
+
+
+                    {error && (
+                        <p className="mt-8 text-red-400">
+                            {error}
+                        </p>
+                    )}
+
+                    {!loading && !error && contacts.map((contact) => (
+                            <ContactCard
+                                key={contact._id}
+                                contact={contact}
+                            />
+                        ))
+                    }
+                </div>
             </div>
-
-            {loading && (
-                <p className="mt-8 text-[#959595]">
-                    Cargando contactos...
-                </p>
-            )}
-
-
-            {error && (
-                <p className="mt-8 text-red-400">
-                    {error}
-                </p>
-            )}
-
-            {!loading && !error && contacts.map((contact) => (
-                    <ContactCard
-                        key={contact._id}
-                        contact={contact}
-                    />
-                ))
-            }
 
             {isOpenPopup && (
                 <div

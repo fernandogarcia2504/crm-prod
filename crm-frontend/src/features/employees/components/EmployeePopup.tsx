@@ -127,7 +127,7 @@ export default function EmployeePopup({ onClose, createEmployee, bulkCreateEmplo
         <form
             onSubmit={mode === "individual" ? handleSubmitIndividual : handleSubmitBulk}
             onClick={(e) => e.stopPropagation()}
-            className="w-[38%] max-h-[85vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6"
+            className="w-[92%] sm:w-[75%] md:w-[55%] lg:w-[38%] max-h-[85vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6"
         >
             <button onClick={onClose} type="button"><X size={14} /></button>
 

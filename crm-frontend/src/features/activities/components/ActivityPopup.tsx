@@ -96,7 +96,7 @@ export default function ActivityPopup({ onClose, createActivity}: ActivityPopupP
 
 
     return (
-        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[40%] max-h-[90vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6">
+        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[92%] sm:w-[75%] md:w-[55%] lg:w-[40%] max-h-[90vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6">
 
             <button type="button" onClick={onClose}><X size={14} /></button>
             <div className="flex gap-2 items-center">

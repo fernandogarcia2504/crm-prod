@@ -67,56 +67,58 @@ export default function CompanyGradesPage() {
             )}
 
             {!loading && !error && employees.length > 0 && (
-                <div className="w-full flex flex-col gap-2 mt-8">
+                <div className="w-full overflow-x-auto mt-8">
+                    <div className="min-w-[780px] flex flex-col gap-2">
 
-                    <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
-                        <p className="w-[26%]">Nombre</p>
-                        <p className="w-[16%]">Sector</p>
-                        <p className="w-[18%]">Estado</p>
-                        <p className="w-[18%]">Progreso</p>
-                        <p className="w-[14%]">Promedio de quiz</p>
-                        <p className="w-[8%] text-right">Detalle</p>
-                    </div>
+                        <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
+                            <p className="w-[26%]">Nombre</p>
+                            <p className="w-[16%]">Sector</p>
+                            <p className="w-[18%]">Estado</p>
+                            <p className="w-[18%]">Progreso</p>
+                            <p className="w-[14%]">Promedio de quiz</p>
+                            <p className="w-[8%] text-right">Detalle</p>
+                        </div>
 
-                    {employees.map((employee) => {
+                        {employees.map((employee) => {
 
-                        const average = averageQuizScore(employee);
+                            const average = averageQuizScore(employee);
 
-                        return (
-                            <div key={employee._id} className="w-full flex flex-col bg-[#1A1A1A] rounded-md">
-                                <div className="w-full flex items-center px-4 py-3">
-                                    <p className="w-[26%] text-sm">{employee.fullName}</p>
-                                    <p className="w-[16%] text-sm text-[#959595]">{employee.sector || "—"}</p>
-                                    <p className="w-[18%] text-sm">
-                                        {!employee.courseAccount.course
-                                            ? "Sin curso"
-                                            : employee.courseAccount.completed
-                                                ? "Completado"
-                                                : employee.courseAccount.enrolled
-                                                    ? "En curso"
-                                                    : "Sin enrolar"}
-                                    </p>
-                                    <p className="w-[18%] text-sm text-[#959595]">{employee.courseAccount.progress}%</p>
-                                    <p className="w-[14%] text-sm text-[#959595]">
-                                        {average !== null ? `${average}%` : "—"}
-                                    </p>
-                                    <div className="w-[8%] flex justify-end">
-                                        <button title="Ver detalle por módulo" onClick={() => toggleExpanded(employee._id)}>
-                                            {expandedEmployeeId === employee._id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                                        </button>
+                            return (
+                                <div key={employee._id} className="w-full flex flex-col bg-[#1A1A1A] rounded-md">
+                                    <div className="w-full flex items-center px-4 py-3">
+                                        <p className="w-[26%] text-sm">{employee.fullName}</p>
+                                        <p className="w-[16%] text-sm text-[#959595]">{employee.sector || "—"}</p>
+                                        <p className="w-[18%] text-sm">
+                                            {!employee.courseAccount.course
+                                                ? "Sin curso"
+                                                : employee.courseAccount.completed
+                                                    ? "Completado"
+                                                    : employee.courseAccount.enrolled
+                                                        ? "En curso"
+                                                        : "Sin enrolar"}
+                                        </p>
+                                        <p className="w-[18%] text-sm text-[#959595]">{employee.courseAccount.progress}%</p>
+                                        <p className="w-[14%] text-sm text-[#959595]">
+                                            {average !== null ? `${average}%` : "—"}
+                                        </p>
+                                        <div className="w-[8%] flex justify-end">
+                                            <button title="Ver detalle por módulo" onClick={() => toggleExpanded(employee._id)}>
+                                                {expandedEmployeeId === employee._id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                            </button>
+                                        </div>
                                     </div>
+
+                                    {expandedEmployeeId === employee._id && (
+                                        <div className="border-t border-[#2b2b2b]">
+                                            <ModuleGradesList employee={employee} modules={course?.modules ?? []} />
+                                        </div>
+                                    )}
                                 </div>
+                            );
 
-                                {expandedEmployeeId === employee._id && (
-                                    <div className="border-t border-[#2b2b2b]">
-                                        <ModuleGradesList employee={employee} modules={course?.modules ?? []} />
-                                    </div>
-                                )}
-                            </div>
-                        );
+                        })}
 
-                    })}
-
+                    </div>
                 </div>
             )}
 

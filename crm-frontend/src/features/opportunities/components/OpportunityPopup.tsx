@@ -92,7 +92,7 @@ export default function OpportunityPopup({onClose, createOpportunity}: Opportuni
 
 
     return(
-        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[27%] bg-[#1A1A1A] flex flex-col p-4 gap-6">
+        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[92%] sm:w-[70%] md:w-[45%] lg:w-[27%] max-h-[90vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6">
 
             <button onClick={onClose} type="button"> <X size={14} /></button>
 

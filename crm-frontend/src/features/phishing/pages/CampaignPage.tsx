@@ -245,7 +245,7 @@ export default function CampaignPage() {
                     {launchError && <p className="text-sm text-red-400 mt-2">{launchError}</p>}
                     {syncError && <p className="text-sm text-red-400 mt-2">{syncError}</p>}
 
-                    <div className="w-full grid grid-cols-5 gap-4 mt-6">
+                    <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-6">
                         {[
                             { label: "Enviados", value: campaign.metrics.sent },
                             { label: "Abiertos", value: campaign.metrics.opened },
@@ -264,47 +264,51 @@ export default function CampaignPage() {
 
                     <div className="border-b border-b-[#777777] w-full mt-8 mb-6"></div>
 
-                    <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
-                        <p className="w-[26%]">Empleado</p>
-                        <p className="w-[14%]">Sector</p>
-                        {EVENT_COLUMNS.map((column) => (
-                            <p key={column.event} className="w-[12%] text-center">{column.label}</p>
-                        ))}
-                    </div>
-
-                    {campaign.targets.map((target) => {
-
-                        const employee = isPopulatedEmployee(target.employee) ? target.employee : null;
-
-                        return (
-                            <div key={target._id} className="w-full flex items-center bg-[#1A1A1A] rounded-md px-4 py-3 mt-1">
-                                <div className="w-[26%]">
-                                    <p className="text-sm">{employee?.fullName ?? "Empleado"}</p>
-                                    <p className="text-xs text-[#959595]">{employee?.email}</p>
-                                </div>
-                                <p className="w-[14%] text-sm text-[#959595]">{employee?.sector || "—"}</p>
-
-                                {EVENT_COLUMNS.map((column) => {
-
-                                    const active = target[column.event];
-
-                                    return (
-                                        <div key={column.event} className="w-[12%] flex justify-center">
-                                            <button
-                                                type="button"
-                                                onClick={() => handleToggle(target._id, column.event, active)}
-                                                className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${
-                                                    active ? "bg-[#2F76D2]" : "bg-[#212121]"
-                                                }`}
-                                            >
-                                                {active && <Check size={14} />}
-                                            </button>
-                                        </div>
-                                    );
-                                })}
+                    <div className="w-full overflow-x-auto">
+                        <div className="min-w-[760px]">
+                            <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
+                                <p className="w-[26%]">Empleado</p>
+                                <p className="w-[14%]">Sector</p>
+                                {EVENT_COLUMNS.map((column) => (
+                                    <p key={column.event} className="w-[12%] text-center">{column.label}</p>
+                                ))}
                             </div>
-                        );
-                    })}
+
+                            {campaign.targets.map((target) => {
+
+                                const employee = isPopulatedEmployee(target.employee) ? target.employee : null;
+
+                                return (
+                                    <div key={target._id} className="w-full flex items-center bg-[#1A1A1A] rounded-md px-4 py-3 mt-1">
+                                        <div className="w-[26%]">
+                                            <p className="text-sm">{employee?.fullName ?? "Empleado"}</p>
+                                            <p className="text-xs text-[#959595]">{employee?.email}</p>
+                                        </div>
+                                        <p className="w-[14%] text-sm text-[#959595]">{employee?.sector || "—"}</p>
+
+                                        {EVENT_COLUMNS.map((column) => {
+
+                                            const active = target[column.event];
+
+                                            return (
+                                                <div key={column.event} className="w-[12%] flex justify-center">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleToggle(target._id, column.event, active)}
+                                                        className={`w-6 h-6 rounded-md flex items-center justify-center transition-colors ${
+                                                            active ? "bg-[#2F76D2]" : "bg-[#212121]"
+                                                        }`}
+                                                    >
+                                                        {active && <Check size={14} />}
+                                                    </button>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </>
             )}
 

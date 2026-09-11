@@ -120,7 +120,7 @@ export default function ProjectPage() {
                                     <p>Porcentaje: {getPhaseProgress(phase)}%</p>
                                 </div>
 
-                                <div className="w-full flex flex-row bg-[#171717] rounded-lg shadow-lg p-6 mt-3 gap-12">
+                                <div className="w-full flex flex-row overflow-x-auto bg-[#171717] rounded-lg shadow-lg p-6 mt-3 gap-4 md:gap-12">
                                     {COLUMNS.map((column) => {
 
                                         const tasks = phase.checklist.filter(
@@ -142,7 +142,7 @@ export default function ProjectPage() {
                                                     )
                                                 }
                                                 onDrop={(event) => handleDrop(event, column.status)}
-                                                className={`w-1/3 flex flex-col rounded-md p-4 gap-3 transition-colors ${
+                                                className={`w-[80%] sm:w-[45%] md:w-1/3 flex-shrink-0 md:flex-shrink flex flex-col rounded-md p-4 gap-3 transition-colors ${
                                                     draggedOverColumn === columnKey
                                                         ? "bg-[#232323] outline-1 outline-dashed outline-[#2F76D2]"
                                                         : "bg-[#1A1A1A]"

@@ -70,14 +70,14 @@ export default function() {
     }
 
     return(
-        <motion.div  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="w-full h-screen flex">
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="w-1/2 h-full">                
+        <motion.div  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="w-full min-h-screen flex flex-col md:flex-row">
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="w-full h-40 sm:h-56 md:h-auto md:w-1/2">
                 <img src={Aston} alt="" className="w-full h-full object-cover" />
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="w-[50%] flex flex-col items-center justify-center">
-                <h1 className="text-4xl">Inicia sesión y empieza a crear...</h1>
-                <form onSubmit={handleSumbit} className="w-1/2 bg-[#1A1A1A] flex flex-col gap-4 mt-16 rounded-md shadow-lg p-4">
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="w-full md:w-[50%] flex flex-col items-center justify-center px-6 py-12">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl text-center">Inicia sesión y empieza a crear...</h1>
+                <form onSubmit={handleSumbit} className="w-full max-w-sm bg-[#1A1A1A] flex flex-col gap-4 mt-16 rounded-md shadow-lg p-4">
 
                     <div className="flex flex-col gap-1">
                         <p className="text-2xl">Iniciar Sesión</p>

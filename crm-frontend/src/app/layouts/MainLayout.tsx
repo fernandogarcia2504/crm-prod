@@ -20,7 +20,7 @@ export default function MainLayout() {
             {!hideNavbar && (
                 isIndividualCompanyRoute ? <ProjectNavbar /> : <CompanyNavbar />)}
 
-            <main className="w-[80%]">
+            <main className="w-[94%] sm:w-[90%] md:w-[80%]">
                 <Outlet />
             </main>
 

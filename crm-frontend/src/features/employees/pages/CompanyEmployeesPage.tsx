@@ -178,51 +178,53 @@ export default function CompanyEmployeesPage() {
             )}
 
             {!loading && !error && employees.length > 0 && (
-                <div className="w-full flex flex-col gap-2 mt-8">
+                <div className="w-full overflow-x-auto mt-8">
+                    <div className="min-w-[820px] flex flex-col gap-2">
 
-                    <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
-                        <p className="w-[24%]">Nombre</p>
-                        <p className="w-[18%]">Puesto</p>
-                        <p className="w-[24%]">Correo</p>
-                        <p className="w-[14%]">Sector</p>
-                        <p className="w-[10%]">Curso</p>
-                        <p className="w-[10%] text-right">Acciones</p>
-                    </div>
-
-                    {employees.map((employee) => (
-                        <div key={employee._id} className="w-full flex flex-col bg-[#1A1A1A] rounded-md">
-                            <div className="w-full flex items-center px-4 py-3">
-                                <p className="w-[24%] text-sm">{employee.fullName}</p>
-                                <p className="w-[18%] text-sm text-[#959595]">{employee.position || "—"}</p>
-                                <p className="w-[24%] text-sm text-[#959595]">{employee.email}</p>
-                                <p className="w-[14%] text-sm text-[#959595]">{employee.sector || "—"}</p>
-                                <p className="w-[10%] text-sm">
-                                    {employee.courseAccount.completed
-                                        ? "Completado"
-                                        : employee.courseAccount.enrolled
-                                            ? `${employee.courseAccount.progress}%`
-                                            : "Sin enrolar"}
-                                </p>
-                                <div className="w-[10%] flex justify-end gap-3">
-                                    <button title="Ver calificaciones" onClick={() => toggleExpanded(employee._id)}>
-                                        {expandedEmployeeId === employee._id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                                    </button>
-                                    <button title="Regenerar credenciales del curso" onClick={() => handleRegenerate(employee._id)}>
-                                        <RefreshCw size={14} />
-                                    </button>
-                                    <button title="Eliminar" onClick={() => handleDelete(employee._id)}>
-                                        <Trash2 size={14} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {expandedEmployeeId === employee._id && (
-                                <div className="border-t border-[#2b2b2b]">
-                                    <ModuleGradesList employee={employee} modules={course?.modules ?? []} />
-                                </div>
-                            )}
+                        <div className="w-full flex bg-[#171717] rounded-t-md px-4 py-2 text-sm text-[#959595]">
+                            <p className="w-[24%]">Nombre</p>
+                            <p className="w-[18%]">Puesto</p>
+                            <p className="w-[24%]">Correo</p>
+                            <p className="w-[14%]">Sector</p>
+                            <p className="w-[10%]">Curso</p>
+                            <p className="w-[10%] text-right">Acciones</p>
                         </div>
-                    ))}
+
+                        {employees.map((employee) => (
+                            <div key={employee._id} className="w-full flex flex-col bg-[#1A1A1A] rounded-md">
+                                <div className="w-full flex items-center px-4 py-3">
+                                    <p className="w-[24%] text-sm">{employee.fullName}</p>
+                                    <p className="w-[18%] text-sm text-[#959595]">{employee.position || "—"}</p>
+                                    <p className="w-[24%] text-sm text-[#959595]">{employee.email}</p>
+                                    <p className="w-[14%] text-sm text-[#959595]">{employee.sector || "—"}</p>
+                                    <p className="w-[10%] text-sm">
+                                        {employee.courseAccount.completed
+                                            ? "Completado"
+                                            : employee.courseAccount.enrolled
+                                                ? `${employee.courseAccount.progress}%`
+                                                : "Sin enrolar"}
+                                    </p>
+                                    <div className="w-[10%] flex justify-end gap-3">
+                                        <button title="Ver calificaciones" onClick={() => toggleExpanded(employee._id)}>
+                                            {expandedEmployeeId === employee._id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                        </button>
+                                        <button title="Regenerar credenciales del curso" onClick={() => handleRegenerate(employee._id)}>
+                                            <RefreshCw size={14} />
+                                        </button>
+                                        <button title="Eliminar" onClick={() => handleDelete(employee._id)}>
+                                            <Trash2 size={14} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {expandedEmployeeId === employee._id && (
+                                    <div className="border-t border-[#2b2b2b]">
+                                        <ModuleGradesList employee={employee} modules={course?.modules ?? []} />
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
 

@@ -85,7 +85,7 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
     }
 
     return(
-        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[27%] bg-[#1A1A1A] flex flex-col p-4 gap-6">
+        <form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()} className="w-[92%] sm:w-[70%] md:w-[45%] lg:w-[27%] max-h-[90vh] overflow-y-auto bg-[#1A1A1A] flex flex-col p-4 gap-6">
 
             <button type="button" onClick={onClose}> <X size={14} /></button>
 
@@ -138,14 +138,14 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
                     <input type="text" name="city" value={formData.address?.city} onChange={handleAddressChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="Ciudad..." />
                 </div>
             </div>
-            <div className="w-full flex gap-3">
-                <div className="w-1/2 flex flex-col gap-3">
+            <div className="w-full flex flex-col sm:flex-row gap-3">
+                <div className="w-full sm:w-1/3 flex flex-col gap-3">
                     <input type="text" name="pc" value={formData.address?.pc} onChange={handleAddressChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="CP..." />
                 </div>
-                <div className="w-1/2 flex flex-col gap-3">
+                <div className="w-full sm:w-1/3 flex flex-col gap-3">
                     <input type="text" name="street" value={formData.address?.street} onChange={handleAddressChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="Calle..." />
                 </div>
-                <div className="w-1/2 flex flex-col gap-3">
+                <div className="w-full sm:w-1/3 flex flex-col gap-3">
                     <input type="text" name="state" value={formData.address?.state} onChange={handleAddressChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="Estado..." />
                 </div>
             </div>

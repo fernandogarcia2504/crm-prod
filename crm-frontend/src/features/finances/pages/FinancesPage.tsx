@@ -17,13 +17,13 @@ export default function FinancesPage() {
             </div>
 
             <div className="w-full">
-                <div className="flex flex-row justify-between gap-3">
+                <div className="flex flex-col sm:flex-row flex-wrap justify-between gap-3">
                     <ProcessCard quantity={482000} />
                     <BillingCard billing="87300" />
                     <PendingBillingCard pendingBilling={92100} />
                     <PendingAdvanceCard pendingAdvance={100000} />
                 </div>
-                <div className="w-full flex gap-3">
+                <div className="w-full flex flex-col sm:flex-row gap-3">
                 <AvailableMoneyCard amount={72000} />
                 <AverageBillingCard billing={32000} />
                 </div>

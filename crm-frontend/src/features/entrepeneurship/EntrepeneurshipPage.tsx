@@ -77,13 +77,13 @@ export default function EntrepeneurshipPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5 }}
-            className="w-full flex flex-col items-center h-screen gap-4 pt-24"
+            className="w-full flex flex-col items-center min-h-screen gap-4 pt-16 sm:pt-24 px-4 text-center"
         >
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.5 }}
-                className="text-4xl font-bold"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold"
             >
                 El mayor riesgo es no correr ningún riesgo
             </motion.h1>
@@ -126,7 +126,7 @@ export default function EntrepeneurshipPage() {
                         duration: 1.5,
                         delay: 0.35
                     }}
-                    className="w-full flex flex-row gap-12 mt-12 justify-center"
+                    className="w-full flex flex-col sm:flex-row flex-wrap gap-6 sm:gap-12 mt-12 justify-center items-center sm:items-stretch"
                 >
 
                     {businessess.map((business) => (

@@ -12,7 +12,7 @@ export default function AverageBillingCard({billing}: SetAverageBillingCardProps
         <motion.div
             whileHover={{ backgroundColor: "#242424" }}
             transition={{ duration: 0.2 }}
-            className=" flex flex-col w-[30%] bg-[#1A1A1A] mt-8 px-3 py-2 gap-3 rounded-md shadow-lg"
+            className=" flex flex-col w-full sm:w-[30%] bg-[#1A1A1A] mt-8 px-3 py-2 gap-3 rounded-md shadow-lg"
         >
             <p className="text-sm font-bold">ticket promedio por cliente</p>
             

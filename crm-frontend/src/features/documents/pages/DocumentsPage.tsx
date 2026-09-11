@@ -33,33 +33,37 @@ export default function DocumentsPage() {
                 <CreateButton title="Agregar Documento" onClick={() => setIsOpenPopup(true)}/>
             </div>
 
-            <div className="w-full grid grid-cols-[20%_10%_20%_40%_10%] pt-12">
-                <p className="text-[#959595] ">Nombre del archivo</p>
-                <p className="text-[#959595] ">Tamaño</p>
-                <p className="text-[#959595] ">Categoría</p>
-                <p className="text-[#959595] ">Notas</p>
-                <p className="text-[#959595] ">Eliminar</p>
+            <div className="w-full overflow-x-auto">
+                <div className="min-w-[700px]">
+                    <div className="w-full grid grid-cols-[20%_10%_20%_40%_10%] pt-12">
+                        <p className="text-[#959595] ">Nombre del archivo</p>
+                        <p className="text-[#959595] ">Tamaño</p>
+                        <p className="text-[#959595] ">Categoría</p>
+                        <p className="text-[#959595] ">Notas</p>
+                        <p className="text-[#959595] ">Eliminar</p>
+                    </div>
+
+                    {loading && (
+                        <p className="mt-8 text-[#959595]">Cargando documentos...</p>
+                    )}
+
+                    {error && (
+                        <p className="mt-8 text-red-400">{error}</p>
+                    )}
+
+                    {deleteError && (
+                        <p className="mt-8 text-red-400">{deleteError}</p>
+                    )}
+
+                    {!loading && !error && documents.length === 0 && (
+                        <p className="mt-8 text-[#959595]">No hay documentos registrados para esta empresa.</p>
+                    )}
+
+                    {!loading && !error && documents.map((document) => (
+                        <DocumentCard key={document._id} document={document} onDelete={handleDelete} />
+                    ))}
+                </div>
             </div>
-
-            {loading && (
-                <p className="mt-8 text-[#959595]">Cargando documentos...</p>
-            )}
-
-            {error && (
-                <p className="mt-8 text-red-400">{error}</p>
-            )}
-
-            {deleteError && (
-                <p className="mt-8 text-red-400">{deleteError}</p>
-            )}
-
-            {!loading && !error && documents.length === 0 && (
-                <p className="mt-8 text-[#959595]">No hay documentos registrados para esta empresa.</p>
-            )}
-
-            {!loading && !error && documents.map((document) => (
-                <DocumentCard key={document._id} document={document} onDelete={handleDelete} />
-            ))}
 
             {isOpenPopup && (
                 <div

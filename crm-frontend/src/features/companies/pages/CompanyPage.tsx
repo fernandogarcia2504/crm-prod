@@ -21,36 +21,40 @@ export default function CompanyPage() {
                 <CreateButton title="Agregar Empresa" onClick={() => setIsOpenPopup(true)} />
             </div>
 
-            <div className="w-full grid grid-cols-[20%_10%_25%_25%_20%] pt-12">
-                <p className="text-[#959595] ">Empresa</p>
-                <p className="text-[#959595] ">Tamaño</p>
-                <p className="text-[#959595] ">Sitio Web</p>
-                <p className="text-[#959595] ">Estatus</p>
-                <p className="text-[#959595] text-right">Lead Source</p>
+            <div className="w-full overflow-x-auto">
+                <div className="min-w-[700px]">
+                    <div className="w-full grid grid-cols-[20%_10%_25%_25%_20%] pt-12">
+                        <p className="text-[#959595] ">Empresa</p>
+                        <p className="text-[#959595] ">Tamaño</p>
+                        <p className="text-[#959595] ">Sitio Web</p>
+                        <p className="text-[#959595] ">Estatus</p>
+                        <p className="text-[#959595] text-right">Lead Source</p>
+                    </div>
+
+                    {loading && (
+                        <p className="mt-8 text-[#959595]">
+                            Cargando empresas...
+                        </p>
+                    )}
+
+
+                    {error && (
+                        <p className="mt-8 text-red-400">
+                            {error}
+                        </p>
+                    )}
+
+
+                    {!loading && !error && (
+                        companies.map((company) => (
+                            <CompanyCard
+                                key={company._id}
+                                company={company}
+                            />
+                        ))
+                    )}
+                </div>
             </div>
-
-            {loading && (
-                <p className="mt-8 text-[#959595]">
-                    Cargando empresas...
-                </p>
-            )}
-
-
-            {error && (
-                <p className="mt-8 text-red-400">
-                    {error}
-                </p>
-            )}
-
-
-            {!loading && !error && (
-                companies.map((company) => (
-                    <CompanyCard
-                        key={company._id}
-                        company={company}
-                    />
-                ))
-            )}
 
             {isOpenPopup && (
                 <div

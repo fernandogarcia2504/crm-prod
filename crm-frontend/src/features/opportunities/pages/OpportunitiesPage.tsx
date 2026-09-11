@@ -35,7 +35,7 @@ export default function OpportunitiesPage() {
                 <p className="mt-8 text-[#959595]">No hay oportunidades registradas.</p>
             )}
 
-            <div className="w-full grid grid-cols-3 gap-12 mt-12">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-12 mt-12">
                 {!loading && !error && opportunities.map(
                     (opportunity) => (
 

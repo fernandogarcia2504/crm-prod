@@ -45,37 +45,41 @@ export default function CompanyContactsPage() {
                 <CreateButton title="Agregar Contacto" onClick={handleOpenCreate} />
             </div>
 
-            <div className="w-full grid grid-cols-[18%_18%_18%_26%_10%_10%] pt-8">
-                <p className="text-[#959595]">Nombre</p>
-                <p className="text-[#959595]">Puesto</p>
-                <p className="text-[#959595]">Teléfono</p>
-                <p className="text-[#959595]">Correo electrónico</p>
-                <p className="text-[#959595] text-right">Principal</p>
-                <p className="text-[#959595] text-right">Acciones</p>
+            <div className="w-full overflow-x-auto">
+                <div className="min-w-[780px]">
+                    <div className="w-full grid grid-cols-[18%_18%_18%_26%_10%_10%] pt-8">
+                        <p className="text-[#959595]">Nombre</p>
+                        <p className="text-[#959595]">Puesto</p>
+                        <p className="text-[#959595]">Teléfono</p>
+                        <p className="text-[#959595]">Correo electrónico</p>
+                        <p className="text-[#959595] text-right">Principal</p>
+                        <p className="text-[#959595] text-right">Acciones</p>
+                    </div>
+
+                    {loading && (
+                        <p className="mt-8 text-[#959595]">
+                            Cargando contactos...
+                        </p>
+                    )}
+
+
+                    {error && (
+                        <p className="mt-8 text-red-400">
+                            {error}
+                        </p>
+                    )}
+
+                    {!loading && !error && contacts.map((contact) => (
+                            <CompanyContactCard
+                                key={contact._id}
+                                contact={contact}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                            />
+                        ))
+                    }
+                </div>
             </div>
-
-            {loading && (
-                <p className="mt-8 text-[#959595]">
-                    Cargando contactos...
-                </p>
-            )}
-
-
-            {error && (
-                <p className="mt-8 text-red-400">
-                    {error}
-                </p>
-            )}
-
-            {!loading && !error && contacts.map((contact) => (
-                    <CompanyContactCard
-                        key={contact._id}
-                        contact={contact}
-                        onEdit={handleEdit}
-                        onDelete={handleDelete}
-                    />
-                ))
-            }
 
             {isOpenPopup && (
                 <div
