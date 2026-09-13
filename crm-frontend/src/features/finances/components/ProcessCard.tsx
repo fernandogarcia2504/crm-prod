@@ -2,9 +2,14 @@ import { motion } from "framer-motion";
 
 interface SetProcessCardProps {
     quantity: number;
+    goal: number;
+    remaining: number;
+    progressPercent: number;
 }
 
-export default function ProcessCard({quantity}: SetProcessCardProps) {
+const formatCurrency = (value: number) => `$${Math.round(value).toLocaleString("es-MX")}`;
+
+export default function ProcessCard({quantity, goal, remaining, progressPercent}: SetProcessCardProps) {
 
     return(
         <motion.div
@@ -14,15 +19,19 @@ export default function ProcessCard({quantity}: SetProcessCardProps) {
         >
             <p className="text-sm font-bold">Proceso hasta llegar al millon</p>
             <div className="flex items-center gap-2">
-                <p className="text-sm">${quantity}</p>
-                <p className="font-bold">/$1,000,000</p>   
+                <p className="text-sm">{formatCurrency(quantity)}</p>
+                <p className="font-bold">/{formatCurrency(goal)}</p>
             </div>
 
             <div className="rounded-2xl w-full bg-slate-300 h-1 mt-2">
-                <div className="rounded-2xl w-[46%] h-full bg-[#2F76D2] "></div>
+                <div className="rounded-2xl h-full bg-[#2F76D2]" style={{ width: `${progressPercent}%` }}></div>
             </div>
 
-            <p className="text-[#959595] text-sm">Faltan $518,000 para la meta anual</p>
+            <p className="text-[#959595] text-sm">
+                {remaining > 0
+                    ? `Faltan ${formatCurrency(remaining)} para la meta anual`
+                    : "¡Meta anual alcanzada!"}
+            </p>
 
         </motion.div>
     )

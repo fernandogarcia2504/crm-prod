@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
-import { MoveUp } from 'lucide-react';
-
 interface SetAverageBillingCardProps {
     billing: number;
 }
+
+const formatCurrency = (value: number) => `$${Math.round(value).toLocaleString("es-MX")}`;
 
 export default function AverageBillingCard({billing}: SetAverageBillingCardProps) {
 
@@ -14,15 +14,11 @@ export default function AverageBillingCard({billing}: SetAverageBillingCardProps
             transition={{ duration: 0.2 }}
             className=" flex flex-col w-full sm:w-[30%] bg-[#1A1A1A] mt-8 px-3 py-2 gap-3 rounded-md shadow-lg"
         >
-            <p className="text-sm font-bold">ticket promedio por cliente</p>
-            
-            <p className="text-sm">${billing}</p>
+            <p className="text-sm font-bold">Ticket promedio por cliente</p>
 
-            <div className="flex items-center gap-2">
-                <MoveUp size={12} color="green" />
-                <p className="text-sm text-[#2FD260]">%15</p>
-                <p className="text-sm text-[#959595]"> vs el mes de junio 2026</p>
-            </div> 
+            <p className="text-sm">{formatCurrency(billing)}</p>
+
+            <p className="text-sm text-[#959595]">En lo que va del año</p>
 
         </motion.div>
     )

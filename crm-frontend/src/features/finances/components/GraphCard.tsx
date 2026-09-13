@@ -9,28 +9,20 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-const data = [
-    { month: "Ene", facturacion: 45000, objetivo: 1000000 },
-    { month: "Feb", facturacion: 85000, objetivo: 1000000 },
-    { month: "Mar", facturacion: 140000, objetivo: 1000000 },
-    { month: "Abr", facturacion: 215000, objetivo: 1000000 },
-    { month: "May", facturacion: 295000, objetivo: 1000000 },
-    { month: "Jun", facturacion: 380000, objetivo: 1000000 },
-    { month: "Jul", facturacion: 470000, objetivo: 1000000 },
-    { month: "Ago", facturacion: 570000, objetivo: 1000000 },
-    { month: "Sep", facturacion: 660000, objetivo: 1000000 },
-    { month: "Oct", facturacion: 755000, objetivo: 1000000 },
-    { month: "Nov", facturacion: 870000, objetivo: 1000000 },
-    { month: "Dic", facturacion: 1000000, objetivo: 1000000 },
-];
+import type { MonthlyBreakdownEntry } from "../types/finance.types";
 
-export default function GraphCard() {
+interface GraphCardProps {
+    data: MonthlyBreakdownEntry[];
+    goal: number;
+}
+
+export default function GraphCard({data, goal}: GraphCardProps) {
 
     return(
         <motion.div
             whileHover={{ backgroundColor: "#242424" }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col w-full sm:w-[60%] bg-[#1A1A1A] mt-8 px-3 py-2 gap-3 rounded-md shadow-lg"
+            className="flex flex-col w-full bg-[#1A1A1A] mt-8 px-3 py-2 gap-3 rounded-md shadow-lg"
         >
             <p className="text-sm font-bold">
                 Facturación acumulada vs objetivo anual
@@ -61,7 +53,7 @@ export default function GraphCard() {
                         />
 
                         <YAxis
-                            domain={[0, 1000000]}
+                            domain={[0, goal]}
                             stroke="#959595"
                             tick={{ fill: "#959595", fontSize: 12 }}
                             axisLine={false}

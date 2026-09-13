@@ -9,6 +9,8 @@ export interface ProjectReference {
     _id: string;
     name: string;
     status?: string;
+    finalAmount?: number | null;
+    billedAt?: string | null;
 }
 
 export interface ContactReference {
@@ -50,6 +52,13 @@ export interface CreateActivityData {
     nextStep?: string;
     scheduledDate?: string;
     date?: string;
+
+    // Solo se usan cuando opportunityUpdates.stage = "Ganado" y la
+    // oportunidad todavia no tiene proyecto: el backend los usa para
+    // crear el Project con su precio final.
+    finalAmount?: number;
+    billedAt?: string;
+
     opportunityUpdates?: {
         stage?: | "Descubrimiento" | "Propuesta" | "Negociacion" | "Contrato" | "Ganado" | "Perdido";
         probability?: number;

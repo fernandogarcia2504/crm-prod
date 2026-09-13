@@ -17,7 +17,9 @@ export const createActivity = async (req, res) => {
             result,
             nextStep,
             scheduledDate,
-            opportunityUpdates
+            opportunityUpdates,
+            finalAmount,
+            billedAt
         } = req.body;
 
         const opportunity = await Opportunity.findById(opportunityId);
@@ -115,6 +117,16 @@ export const createActivity = async (req, res) => {
         let project = null;
 
         if(opportunity.stage === "Ganado" && !opportunity.project) {
+
+            // El precio final es obligatorio en el momento en que se crea
+            // el proyecto: es lo que alimenta las metricas de la pagina de
+            // Finanzas, asi que no se puede ganar una oportunidad sin el.
+            if (finalAmount === undefined || finalAmount === null || finalAmount === "") {
+                return res.status(400).json({
+                    message: "El precio final es requerido para marcar la oportunidad como Ganado y crear el proyecto"
+                });
+            }
+
             const serviceTemplate = await ServiceTemplate.findById( opportunity.serviceTemplate );
 
             if(!serviceTemplate) {
@@ -135,6 +147,13 @@ export const createActivity = async (req, res) => {
                 name: opportunity.title,
 
                 startDate: opportunity.expectedStartDate,
+
+                // Precio final y fecha de facturacion: alimentan las
+                // metricas de la pagina de Finanzas. Si no mandan fecha de
+                // facturacion se usa la fecha de la actividad (o ahora).
+                finalAmount: Number(finalAmount),
+
+                billedAt: billedAt ? new Date(billedAt) : (date ? new Date(date) : new Date()),
 
                 // Project comienza en Planeacion
                 status: "Planeacion",

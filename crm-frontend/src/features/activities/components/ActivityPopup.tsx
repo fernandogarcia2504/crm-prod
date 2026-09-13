@@ -30,6 +30,11 @@ export default function ActivityPopup({ onClose, createActivity}: ActivityPopupP
     const [nextAction, setNextAction] = useState("");
     const [nextActionDate, setNextActionDate] = useState("");
 
+    // Solo aplican cuando la etapa nueva es "Ganado": ahi es cuando se
+    // crea el proyecto y se necesita su precio final.
+    const [finalAmount, setFinalAmount] = useState("");
+    const [billedAt, setBilledAt] = useState("");
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -47,12 +52,26 @@ export default function ActivityPopup({ onClose, createActivity}: ActivityPopupP
 
     const handleSubmit = async ( e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (stage === "Ganado" && finalAmount === "") {
+            setError("El precio final es requerido para marcar la oportunidad como Ganado");
+            return;
+        }
+
         try {
             setLoading(true);
             setError(null);
 
             const activityData: CreateActivityData = {
                 ...formData,
+
+                ...(stage === "Ganado" && finalAmount !== ""
+                    ? { finalAmount: Number(finalAmount) }
+                    : {}),
+
+                ...(stage === "Ganado" && billedAt
+                    ? { billedAt }
+                    : {}),
 
                 opportunityUpdates:
                     stage ||
@@ -356,21 +375,62 @@ export default function ActivityPopup({ onClose, createActivity}: ActivityPopupP
             </div>
 
 
-            {/* Aviso cuando se gana */}
+            {/* Precio final y fecha de facturación: solo al ganar */}
 
             {stage === "Ganado" && (
 
-                <div className="rounded-md bg-[#212121] p-3">
+                <div className="flex flex-col gap-4">
 
-                    <p className="text-sm text-[#959595]">
-                        Al marcar la oportunidad como
-                        <span className="text-[#ECECEC]">
-                            {" "}Ganado
-                        </span>
-                        , el backend creará automáticamente
-                        el Project asociado.
+                    <div className="w-full flex flex-col gap-3">
 
-                    </p>
+                        <p className="text-sm text-[#959595]">
+                            Precio final del proyecto
+                        </p>
+
+                        <input
+                            type="number"
+                            min="0"
+                            required
+                            value={finalAmount}
+                            onChange={(e) =>
+                                setFinalAmount(e.target.value)
+                            }
+                            className="w-full rounded-md px-3 py-2 bg-[#212121]"
+                            placeholder="Ej. 150000"
+                        />
+
+                    </div>
+
+                    <div className="w-full flex flex-col gap-3">
+
+                        <p className="text-sm text-[#959595]">
+                            Fecha de facturación
+                        </p>
+
+                        <input
+                            type="date"
+                            value={billedAt}
+                            onChange={(e) =>
+                                setBilledAt(e.target.value)
+                            }
+                            className="w-full rounded-md px-3 py-2 bg-[#212121]"
+                        />
+
+                    </div>
+
+                    <div className="rounded-md bg-[#212121] p-3">
+
+                        <p className="text-sm text-[#959595]">
+                            Al marcar la oportunidad como
+                            <span className="text-[#ECECEC]">
+                                {" "}Ganado
+                            </span>
+                            , el backend creará automáticamente
+                            el Project asociado con este precio final.
+
+                        </p>
+
+                    </div>
 
                 </div>
 

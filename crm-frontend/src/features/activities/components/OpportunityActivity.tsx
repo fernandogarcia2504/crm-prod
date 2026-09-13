@@ -89,7 +89,16 @@ export default function OpportunityActivity({ opportunity, onOpportunityUpdate }
                     <p className="text-sm text-[#959595]">
                         Se creó automáticamente el proyecto
                         <span className="text-[#ECECEC]"> {newProject.name}</span>
-                        {" "}a partir de esta oportunidad.
+                        {" "}a partir de esta oportunidad
+                        {newProject.finalAmount != null && (
+                            <>
+                                {" "}por{" "}
+                                <span className="text-[#ECECEC]">
+                                    ${newProject.finalAmount.toLocaleString("es-MX")}
+                                </span>
+                            </>
+                        )}
+                        .
                     </p>
                 </div>
             )}

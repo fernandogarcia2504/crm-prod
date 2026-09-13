@@ -13,6 +13,7 @@ import documentRoutes from "./routes/document.routes.js"
 import employeeRoutes from "./routes/employee.routes.js"
 import phishingCampaignRoutes from "./routes/phishingCampaign.routes.js"
 import gophishRoutes from "./routes/gophish.routes.js"
+import financeRoutes from "./routes/finance.routes.js"
 import courseRoutes from "./routes/course.routes.js"
 import courseAuthRoutes from "./routes/courseAuth.routes.js"
 import coursePortalRoutes from "./routes/coursePortal.routes.js"
@@ -56,6 +57,7 @@ app.use("/api/documents", verifyToken, documentRoutes);
 app.use("/api/employees", verifyToken, employeeRoutes);
 app.use("/api/phishing-campaigns", verifyToken, phishingCampaignRoutes);
 app.use("/api/gophish", verifyToken, gophishRoutes);
+app.use("/api/finances", verifyToken, financeRoutes);
 
 // Contenido de los cursos: administrado por staff (mismo verifyToken de siempre)
 app.use("/api/courses", verifyToken, courseRoutes);
@@ -65,11 +67,6 @@ app.use("/api/courses", verifyToken, courseRoutes);
 app.use("/api/course-auth", courseAuthRoutes);
 app.use("/api/course-portal", verifyEmployeeToken, coursePortalRoutes);
 
-// Manejador de errores global: cualquier error no controlado en una ruta o
-// middleware (incluyendo el rechazo de CORS de arriba) cae aquí en vez del
-// manejador default de Express, que regresaba HTML sin detalle. Esto deja
-// el error real en los logs de Heroku (heroku logs --tail) y responde JSON
-// consistente con el resto de la API.
 app.use((err, req, res, next) => {
 
     if (res.headersSent) {

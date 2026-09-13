@@ -68,6 +68,8 @@ export interface Project {
     opportunity: string | (RelatedModel & { stage?: string }) | null;
     serviceTemplate: string | (RelatedModel & { description?: string }) | null;
     name: string;
+    finalAmount: number | null;
+    billedAt: string | null;
     status: "Planeacion" | "Ejecucion" | "Cierre" | "Cerrado";
     manager?: string;
     startDate: string | null;
@@ -95,3 +97,4 @@ export interface UpdateTaskStatusResponse {
     message: string;
     project: Project;
 }
+

@@ -24,6 +24,23 @@ const ProjectSchema = new mongoose.Schema ({
 
     name: String,
 
+    // Precio final acordado con el cliente al ganar la oportunidad. Es lo
+    // que alimenta las metricas de la pagina de Finanzas (progreso hacia
+    // la meta anual, facturacion del mes, ticket promedio, etc).
+    finalAmount: {
+        type: Number,
+        default: null
+    },
+
+    // Fecha en la que se factura este proyecto. Independiente de cuando
+    // se gano la oportunidad o de la fecha de entrega: es la fecha que
+    // determina en que mes/año cuenta este proyecto para las metricas
+    // financieras.
+    billedAt: {
+        type: Date,
+        default: null
+    },
+
     status:{
         type:String,
         enum:[
