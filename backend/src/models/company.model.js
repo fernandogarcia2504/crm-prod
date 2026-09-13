@@ -22,6 +22,23 @@ const companySchema = new mongoose.Schema ({
         default: "Prospecto"
     },
 
+    type: {
+        type:String,
+        enum: [
+            "Fintech",
+            "Despacho Juridico",
+            "Despacho Contable",
+            "Hospital",
+            "Banco",
+            "Laboratorio",
+            "Retail",
+            "E-Commerce",
+            "Eduacion",
+            "Otro",
+        ],
+        default: "Otro"
+    },
+
     notes: String,
     address: {
         country: String,

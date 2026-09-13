@@ -2,38 +2,81 @@ import { useState } from "react";
 
 import { Building2, X } from "lucide-react";
 
-import type { CreateCompanyData } from "../types/company.types";
+import type { Company, CreateCompanyData, UpdateCompanyData } from "../types/company.types";
 
 interface CompanyPopupsProps {
     onClose: () => void;
 
+    company?: Company | null;
+
     createCompany: (
         companyData: CreateCompanyData
     ) => Promise<unknown>;
+
+    updateCompany?: (
+        companyId: string,
+        companyData: UpdateCompanyData
+    ) => Promise<unknown>;
 }
 
-export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProps) {
+const COMPANY_TYPES = [
+    "Fintech",
+    "Despacho Juridico",
+    "Despacho Contable",
+    "Hospital",
+    "Banco",
+    "Laboratorio",
+    "Retail",
+    "E-Commerce",
+    "Eduacion",
+    "Otro"
+];
 
-    const [formData, setFormData] = useState<CreateCompanyData> ({
-        name: "",
-        website: "",
-        companySize: "",
-        leadSource: "",
-        notes: "",
-        address: {
-            country: "",
-            city: "",
-            pc: "",
-            street: "",
-            state: ""
-        }
-    })
+const emptyFormData: CreateCompanyData = {
+    name: "",
+    website: "",
+    companySize: "",
+    leadSource: "",
+    type: "Otro",
+    notes: "",
+    address: {
+        country: "",
+        city: "",
+        pc: "",
+        street: "",
+        state: ""
+    }
+};
+
+export default function CompanyPopup({onClose, company, createCompany, updateCompany}: CompanyPopupsProps) {
+
+    const isEditing = Boolean(company);
+
+    const [formData, setFormData] = useState<CreateCompanyData> (
+        company
+            ? {
+                name: company.name,
+                website: company.website,
+                companySize: company.companySize,
+                leadSource: company.leadSource,
+                type: company.type ?? "Otro",
+                notes: company.notes ?? "",
+                address: {
+                    country: company.address?.country ?? "",
+                    city: company.address?.city ?? "",
+                    pc: company.address?.pc ?? "",
+                    street: company.address?.street ?? "",
+                    state: company.address?.state ?? ""
+                }
+            }
+            : emptyFormData
+    )
 
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const handleChange = ( e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const {name, value} = e.target;
 
         setFormData((currentData) => ({
@@ -63,7 +106,11 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
             setLoading(true);
             setError(null);
 
-            await createCompany(formData);
+            if (isEditing && company && updateCompany) {
+                await updateCompany(company._id, formData);
+            } else {
+                await createCompany(formData);
+            }
 
             onClose();
 
@@ -74,7 +121,7 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
             setError(
                 error instanceof Error
                     ? error.message
-                    : "Error al crear la empresa"
+                    : `Error al ${isEditing ? "actualizar" : "crear"} la empresa`
             );
 
         } finally {
@@ -91,7 +138,7 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
 
             <div className="flex gap-2">
                 <Building2 />
-                <p>Agregar nueva empresa</p>
+                <p>{isEditing ? "Editar empresa" : "Agregar nueva empresa"}</p>
             </div>
 
             {error && (
@@ -126,6 +173,20 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
             </div>
 
             <div className="w-full flex flex-col gap-3">
+                <p className="text-sm">Tipo de empresa</p>
+                <select
+                    name="type"
+                    value={formData.type}
+                    onChange={handleChange}
+                    className="w-full rounded-md px-3 py-1 bg-[#212121] text-sm [color-scheme:dark]"
+                >
+                    {COMPANY_TYPES.map((type) => (
+                        <option key={type} value={type}>{type}</option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="w-full flex flex-col gap-3">
                 <p className="text-sm">Notas</p>
                 <input type="text" name="notes" value={formData.notes} onChange={handleChange} className="w-full rounded-md px-3 py-1 bg-[#212121] placeholder:text-sm" placeholder="Ingresa notas a considerar..." />
             </div>
@@ -151,7 +212,9 @@ export default function CompanyPopup({onClose, createCompany}: CompanyPopupsProp
             </div>
 
             <div className="flex justify-center">
-                <button className="w-[40%] bg-[#2F76D2] rounded-md px-2 py-1">Crear empresa</button>
+                <button type="submit" disabled={loading} className="w-[40%] bg-[#2F76D2] rounded-md px-2 py-1 disabled:opacity-50">
+                    {loading ? (isEditing ? "Guardando..." : "Creando...") : (isEditing ? "Guardar cambios" : "Crear empresa")}
+                </button>
             </div>
         </form>
     )

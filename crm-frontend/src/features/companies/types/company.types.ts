@@ -7,6 +7,7 @@ export interface Company {
     companySize: string;
     leadSource: string;
     status: string;
+    type: string;
     notes?: string;
     address?: {
         country: string;
@@ -23,6 +24,7 @@ export interface CreateCompanyData {
     companySize: string;
     leadSource: string;
     status?: string;
+    type?: string;
     notes?: string;
     address?: {
         country?: string;
@@ -39,6 +41,7 @@ export interface UpdateCompanyData {
     companySize?: string;
     leadSource?: string;
     status?: string;
+    type?: string;
     notes?: string;
     address?: {
         country?: string;

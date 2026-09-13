@@ -27,7 +27,7 @@ export const getCompany = async (businessId: string, companyId: string): Promise
 
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`${API_URL}/companies/${businessId}/${companyId}`, {
+    const response = await fetch(`${API_URL}/companies/${businessId}/companies/${companyId}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -74,7 +74,7 @@ export const updateCompany = async (businessId: string, companyId: string, compa
 
     const token = localStorage.getItem("token");
 
-    const response = await fetch( `${API_URL}/companies/${businessId}/${companyId}`, {
+    const response = await fetch( `${API_URL}/companies/${businessId}/companies/${companyId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const deleteCompany = async ( businessId: string, companyId: string ): Pr
 
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`${API_URL}/companies/${businessId}/${companyId}`, {
+    const response = await fetch(`${API_URL}/companies/${businessId}/companies/${companyId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -118,3 +118,4 @@ export const deleteCompany = async ( businessId: string, companyId: string ): Pr
 
     return data.message;
 };
+

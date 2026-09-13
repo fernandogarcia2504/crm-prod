@@ -1,12 +1,23 @@
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+
+import s3Client from "../config/s3.js";
+
 import Company from "../models/company.model.js";
 import Business from "../models/business.model.js"
+import Contact from "../models/contact.model.js";
+import Opportunity from "../models/opportunity.model.js";
+import Project from "../models/project.model.js";
+import Activity from "../models/activity.model.js";
+import Document from "../models/document.model.js";
+import Employee from "../models/employee.model.js";
+import PhishingCampaign from "../models/phishingCampaign.model.js";
 
 export const createCompany = async(req, res) => {
     try {
 
         const {businessId} = req.params;
 
-        const {name, website, companySize, leadSource, status, notes, address} = req.body;
+        const {name, website, companySize, leadSource, status, type, notes, address} = req.body;
 
         if(!name || !website || !companySize || !leadSource) {
             return res.status(400).json({
@@ -32,11 +43,12 @@ export const createCompany = async(req, res) => {
 
         const company = await Company.create({
             business: businessId,
-            name, 
+            name,
             website,
             companySize,
             leadSource,
             status,
+            type,
             notes,
             address
         });
@@ -50,6 +62,7 @@ export const createCompany = async(req, res) => {
                 companySize: company.companySize,
                 leadSource: company.leadSource,
                 status: company.status,
+                type: company.type,
                 notes: company.notes,
                 address: company.address
             }
@@ -135,6 +148,7 @@ export const updateCompany = async (req, res) => {
             companySize,
             leadSource,
             status,
+            type,
             notes,
             address
         } = req.body;
@@ -183,6 +197,10 @@ export const updateCompany = async (req, res) => {
             company.status = status;
         }
 
+        if (type !== undefined) {
+            company.type = type;
+        }
+
         if (notes !== undefined) {
             company.notes = notes;
         }
@@ -203,6 +221,7 @@ export const updateCompany = async (req, res) => {
                 companySize: company.companySize,
                 leadSource: company.leadSource,
                 status: company.status,
+                type: company.type,
                 notes: company.notes,
                 address: company.address
             }
@@ -234,6 +253,36 @@ export const deleteCompany = async (req, res) => {
                 message: "Empresa no encontrada"
             });
         }
+
+        // Se borran primero los archivos en S3 de los documentos de la
+        // empresa para no dejar archivos huerfanos en el bucket.
+        const documents = await Document.find({ company: companyId });
+
+        await Promise.all(
+            documents.map((document) =>
+                s3Client.send(
+                    new DeleteObjectCommand({
+                        Bucket: document.s3Bucket,
+                        Key: document.s3Key
+                    })
+                ).catch((error) => {
+                    console.error(`Error al eliminar de S3 el archivo ${document.s3Key}:`, error);
+                })
+            )
+        );
+
+        // Se elimina cualquier relacion existente con esta empresa antes
+        // de eliminarla (proyectos, contactos, actividades, oportunidades,
+        // empleados, documentos y campañas de phishing).
+        await Promise.all([
+            Document.deleteMany({ company: companyId }),
+            PhishingCampaign.deleteMany({ company: companyId }),
+            Employee.deleteMany({ company: companyId }),
+            Activity.deleteMany({ company: companyId }),
+            Opportunity.deleteMany({ company: companyId }),
+            Project.deleteMany({ company: companyId }),
+            Contact.deleteMany({ company: companyId })
+        ]);
 
         await Company.findByIdAndDelete(companyId);
 
